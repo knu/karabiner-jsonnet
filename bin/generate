@@ -1,0 +1,3 @@
+#!/bin/sh
+
+jsonnet "$@" | jq --indent 4 . | ruby -e '$> << $<.read.chomp'
