@@ -171,9 +171,18 @@ local generateCommand(command) =
   else
     [];
 
-local to(keys=null, set=null, command=null, lazy=null) =
+local generateApplication(application) =
+  if application != null then
+    if std.startsWith(application, '/') then
+      [{ software_function: { open_application: { file_path: application } } }]
+    else
+      [{ software_function: { open_application: { bundle_identifier: application } } }]
+  else
+    [];
+
+local to(keys=null, set=null, command=null, application=null, lazy=null) =
   local events = std.prune(
-    std.map(generateKey, toArray(keys)) + generateSetVariables(set) + generateCommand(command)
+    std.map(generateKey, toArray(keys)) + generateSetVariables(set) + generateCommand(command) + generateApplication(application)
   );
   if lazy == true then
     std.map(function(event) event { lazy: true }, events)
@@ -207,8 +216,8 @@ local from(keyspec, mandatory=null, optional=null) =
 {
   kbd(keyspec):: generateKey(keyspec),
 
-  to(keys=null, set=null, command=null, lazy=null)::
-    to(keys, set, command, lazy),
+  to(keys=null, set=null, command=null, application=null, lazy=null)::
+    to(keys, set, command, application, lazy),
 
   from(keyspec, mandatory=null, optional=null)::
     from(keyspec, mandatory, optional),
