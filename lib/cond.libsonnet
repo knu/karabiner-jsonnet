@@ -17,6 +17,17 @@ local device_cond(type, identifiers, description=null) =
     ),
   ];
 
+local app_cond(type, identifiers, description=null) =
+  [
+    std.prune(
+      {
+        description: description,
+        bundle_identifiers: toArray(identifiers),
+        type: type,
+      }
+    ),
+  ];
+
 {
   eq(name, value)::
     [{ name: name, type: 'variable_if', value: value }],
@@ -28,4 +39,7 @@ local device_cond(type, identifiers, description=null) =
   device_is_not(identifiers, description=null):: device_cond('device_unless', identifiers, description),
   device_exists(identifiers, description=null):: device_cond('device_exists_if', identifiers, description),
   device_does_not_exist(identifiers, description=null):: device_cond('device_exists_unless', identifiers, description),
+
+  app_is(identifiers, description=null):: app_cond('frontmost_application_if', identifiers, description),
+  app_is_not(identifiers, description=null):: app_cond('frontmost_application_unless', identifiers, description),
 }
