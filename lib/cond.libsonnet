@@ -24,8 +24,8 @@ local device_cond(type, identifiers, description=null) =
   ne(name, value)::
     [{ name: name, type: 'variable_unless', value: value }],
 
-  device_if(identifiers, description=null):: device_cond('device_if', identifiers, description),
-  device_unless(identifiers, description=null):: device_cond('device_unless', identifiers, description),
-  device_exists_if(identifiers, description=null):: device_cond('device_exists_if', identifiers, description),
-  device_exists_unless(identifiers, description=null):: device_cond('device_exists_unless', identifiers, description),
+  device_is(identifiers, description=null):: device_cond('device_if', identifiers, description),
+  device_is_not(identifiers, description=null):: device_cond('device_unless', identifiers, description),
+  device_exists(identifiers, description=null):: device_cond('device_exists_if', identifiers, description),
+  device_does_not_exist(identifiers, description=null):: device_cond('device_exists_unless', identifiers, description),
 }
