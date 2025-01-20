@@ -213,6 +213,16 @@ local from(keyspec, mandatory=null, optional=null) =
       }
     );
 
+local simpleFromTo(keyspecFrom, keyspecTo) =
+  local fromKeys = parseKeySpec(keyspecFrom);
+  local fromKey = if std.length(fromKeys) == 1 then fromKeys[0] else error 'simple key expected';
+  local toKeys = parseKeySpec(keyspecTo);
+  local toKey = if std.length(toKeys) == 1 then toKeys[0] else error 'simple key expected';
+  {
+    from: { key_code: fromKey },
+    to: [{ key_code: toKey }],
+  };
+
 {
   kbd(keyspec):: generateKey(keyspec),
 
@@ -221,4 +231,7 @@ local from(keyspec, mandatory=null, optional=null) =
 
   from(keyspec, mandatory=null, optional=null)::
     from(keyspec, mandatory, optional),
+
+  simple_from_to(simpleKeyFrom, simpleKeyTo)::
+    simpleFromTo(simpleKeyFrom, simpleKeyTo),
 }
