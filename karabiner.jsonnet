@@ -40,25 +40,13 @@ local device = {
         },
         rules: [
           {
-            description: 'grave/caps_lock/left_control/left_option to escape/left_control/grave/half-equal on Apple keyboards',
+            description: 'left_option to left_option/equal_sign on Apple keyboards',
             manipulators: [
               {
                 type: 'basic',
                 conditions: cond.device_is(device.apple),
               } + o
               for o in [
-                {
-                  from: kc.from('*`'),
-                  to: kc.to('ESC'),
-                },
-                {
-                  from: kc.from('*caps_lock'),
-                  to: kc.to('lcontrol'),
-                },
-                {
-                  from: kc.from('*lcontrol'),
-                  to: kc.to('`'),
-                },
                 {
                   description: 'left_option to left_option/equal_sign',
                   from: kc.from('*loption'),
@@ -207,6 +195,15 @@ local device = {
       },
       devices: [
         // ...
+        {
+          // Apple Keyboards
+          identifiers: { is_keyboard: true },
+          simple_modifications: [
+            kc.simple_from_to('`', 'ESC'),
+            kc.simple_from_to('caps_lock', 'lcontrol'),
+            kc.simple_from_to('lcontrol', '`'),
+          ],
+        },
       ],
       fn_function_keys: [
         kc.simple_from_to('f1', 'display_brightness_decrement'),
