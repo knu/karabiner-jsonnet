@@ -20,7 +20,7 @@ build: $(TARGET)
 .SUFFIXES: .json .jsonnet
 
 .jsonnet.json:
-	bin/generate $< > $@
+	bin/generate $< > $@.new && cat $@.new > $@ && rm $@.new
 
 $(TARGET): $(LIBS)
 
