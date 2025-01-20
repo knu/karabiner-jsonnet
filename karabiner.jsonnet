@@ -44,7 +44,7 @@ local device = {
             manipulators: [
               {
                 type: 'basic',
-                conditions: cond.device_if(device.apple),
+                conditions: cond.device_is(device.apple),
               } + o
               for o in [
                 {
@@ -77,7 +77,7 @@ local device = {
             manipulators: [
               {
                 type: 'basic',
-                conditions: cond.device_unless(device.group.programmable),
+                conditions: cond.device_is_not(device.group.programmable),
                 from: kc.from('*lcommand'),
                 to: kc.to('lcommand', lazy=true),
                 to_if_alone: kc.to('japanese_eisuu'),
@@ -93,7 +93,7 @@ local device = {
             manipulators: [
               {
                 type: 'basic',
-                conditions: cond.device_unless(device.group.programmable),
+                conditions: cond.device_is_not(device.group.programmable),
                 from: kc.from('*rcommand'),
                 to: kc.to('rcommand', lazy=true),
                 to_if_alone: kc.to('japanese_kana'),
@@ -109,7 +109,7 @@ local device = {
             manipulators: [
               {
                 type: 'basic',
-                conditions: cond.device_unless(device.group.programmable),
+                conditions: cond.device_is_not(device.group.programmable),
                 from: kc.from(['rshift', 'lshift']) {
                   simultaneous_options: {
                     key_down_order: 'strict',
@@ -128,7 +128,7 @@ local device = {
             manipulators: [
               {
                 type: 'basic',
-                conditions: cond.device_unless(device.group.programmable),
+                conditions: cond.device_is_not(device.group.programmable),
                 from: kc.from('*lshift'),
                 to: kc.to('lshift'),
                 to_if_alone: kc.to('`'),
@@ -144,7 +144,7 @@ local device = {
             manipulators: [
               {
                 type: 'basic',
-                conditions: cond.device_if(device.apple),
+                conditions: cond.device_is(device.apple),
                 from: kc.from('*roption'),
                 to: kc.to('roption', lazy=true),
                 to_if_alone: kc.to('-'),
@@ -160,7 +160,7 @@ local device = {
             manipulators: [
               {
                 type: 'basic',
-                conditions: cond.device_if(device.apple),
+                conditions: cond.device_is(device.apple),
                 from: kc.from('*r shift'),
                 to: kc.to('rshift'),
                 to_if_alone: kc.to('\\'),
@@ -209,126 +209,18 @@ local device = {
         // ...
       ],
       fn_function_keys: [
-        {
-          from: {
-            key_code: 'f1',
-          },
-          to: [
-            {
-              key_code: 'display_brightness_decrement',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f2',
-          },
-          to: [
-            {
-              key_code: 'display_brightness_increment',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f3',
-          },
-          to: [
-            {
-              key_code: 'mission_control',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f4',
-          },
-          to: [
-            {
-              key_code: 'launchpad',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f5',
-          },
-          to: [
-            {
-              key_code: 'illumination_decrement',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f6',
-          },
-          to: [
-            {
-              key_code: 'illumination_increment',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f7',
-          },
-          to: [
-            {
-              key_code: 'rewind',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f8',
-          },
-          to: [
-            {
-              key_code: 'play_or_pause',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f9',
-          },
-          to: [
-            {
-              key_code: 'fastforward',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f10',
-          },
-          to: [
-            {
-              key_code: 'mute',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f11',
-          },
-          to: [
-            {
-              key_code: 'volume_decrement',
-            },
-          ],
-        },
-        {
-          from: {
-            key_code: 'f12',
-          },
-          to: [
-            {
-              key_code: 'volume_increment',
-            },
-          ],
-        },
+        kc.simple_from_to('f1', 'display_brightness_decrement'),
+        kc.simple_from_to('f2', 'display_brightness_increment'),
+        kc.simple_from_to('f3', 'mission_control'),
+        kc.simple_from_to('f4', 'launchpad'),
+        kc.simple_from_to('f5', 'illumination_decrement'),
+        kc.simple_from_to('f6', 'illumination_increment'),
+        kc.simple_from_to('f7', 'rewind'),
+        kc.simple_from_to('f8', 'play_or_pause'),
+        kc.simple_from_to('f9', 'fastforward'),
+        kc.simple_from_to('f10', 'mute'),
+        kc.simple_from_to('f11', 'volume_decrement'),
+        kc.simple_from_to('f12', 'volume_increment'),
       ],
       name: 'Default',
       parameters: {
