@@ -120,6 +120,7 @@ local parseKeySpec(keyspec) =
 
 local orderedModifiers =
   [
+    'any',
     'fn',
     'caps_lock',
     'command',
