@@ -17,12 +17,16 @@ local device_cond(type, identifiers, description=null) =
     ),
   ];
 
-local app_cond(type, identifiers, description=null) =
+local app_cond(type, regexes, description=null) =
+  local regexArray = toArray(regexes);
+  local withSlash = std.filter(function(regex) std.member(regex, '/'), regexArray);
+  local withoutSlash = std.filter(function(regex) !std.member(regex, '/'), regexArray);
   [
     std.prune(
       {
         description: description,
-        bundle_identifiers: toArray(identifiers),
+        bundle_identifiers: withoutSlash,
+        file_paths: withSlash,
         type: type,
       }
     ),
@@ -40,6 +44,6 @@ local app_cond(type, identifiers, description=null) =
   device_exists(identifiers, description=null):: device_cond('device_exists_if', identifiers, description),
   device_does_not_exist(identifiers, description=null):: device_cond('device_exists_unless', identifiers, description),
 
-  app_is(identifiers, description=null):: app_cond('frontmost_application_if', identifiers, description),
-  app_is_not(identifiers, description=null):: app_cond('frontmost_application_unless', identifiers, description),
+  app_is(regexes, description=null):: app_cond('frontmost_application_if', regexes, description),
+  app_is_not(regexes, description=null):: app_cond('frontmost_application_unless', regexes, description),
 }
