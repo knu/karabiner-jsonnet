@@ -190,7 +190,7 @@ local to(keys=null, set=null, command=null, application=null, lazy=null) =
   else
     events;
 
-local from(keyspec, mandatory=null, optional=['caps_lock']) =
+local from(keyspec, mandatory=null, optional=null) =
   if std.isArray(keyspec) then
     local optionalMods = toArray(optional);
     {
