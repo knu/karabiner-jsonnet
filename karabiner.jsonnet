@@ -1,5 +1,6 @@
 local cond = import './lib/cond.libsonnet';
 local kc = import './lib/kc.libsonnet';
+local tap = import './lib/tap.libsonnet';
 local device = {
   apple: {
     is_built_in_keyboard: true,
@@ -42,54 +43,26 @@ local device = {
           {
             description: 'left_option to left_option/equal_sign on Apple keyboards',
             manipulators: [
-              {
-                type: 'basic',
+              tap.modTap('loption', '=', {
+                description: 'left_option to left_option/equal_sign',
                 conditions: cond.device_is(device.apple),
-              } + o
-              for o in [
-                {
-                  description: 'left_option to left_option/equal_sign',
-                  from: kc.from('*loption'),
-                  to: kc.to('loption', lazy=true),
-                  to_if_alone: kc.to('='),
-                  to_if_held_down: kc.to('loption'),
-                  parameters: {
-                    'basic.to_if_held_down_threshold_milliseconds': 100,
-                  },
-                },
-              ]
+              }),
             ],
           },
           {
             description: 'Tap Left Command to 英数',
             manipulators: [
-              {
-                type: 'basic',
+              tap.modTap('lcommand', 'japanese_eisuu', {
                 conditions: cond.device_is_not(device.group.programmable),
-                from: kc.from('*lcommand'),
-                to: kc.to('lcommand', lazy=true),
-                to_if_alone: kc.to('japanese_eisuu'),
-                to_if_held_down: kc.to('lcommand'),
-                parameters: {
-                  'basic.to_if_held_down_threshold_milliseconds': 100,
-                },
-              },
+              }),
             ],
           },
           {
             description: 'Tap Right Command to かな',
             manipulators: [
-              {
-                type: 'basic',
+              tap.modTap('rcommand', 'japanese_kana', {
                 conditions: cond.device_is_not(device.group.programmable),
-                from: kc.from('*rcommand'),
-                to: kc.to('rcommand', lazy=true),
-                to_if_alone: kc.to('japanese_kana'),
-                to_if_held_down: kc.to('rcommand'),
-                parameters: {
-                  'basic.to_if_held_down_threshold_milliseconds': 100,
-                },
-              },
+              }),
             ],
           },
           {
@@ -114,49 +87,25 @@ local device = {
           {
             description: 'left_shift to left_shift/grave_accent_and_tilde',
             manipulators: [
-              {
-                type: 'basic',
+              tap.modTap('lshift', '`', {
                 conditions: cond.device_is_not(device.group.programmable),
-                from: kc.from('*lshift'),
-                to: kc.to('lshift'),
-                to_if_alone: kc.to('`'),
-                to_if_held_down: kc.to('lshift'),
-                parameters: {
-                  'basic.to_if_held_down_threshold_milliseconds': 100,
-                },
-              },
+              }, lazy=false),
             ],
           },
           {
             description: 'right_option to right_option/hyphen on Apple keyboards',
             manipulators: [
-              {
-                type: 'basic',
+              tap.modTap('roption', '-', {
                 conditions: cond.device_is(device.apple),
-                from: kc.from('*roption'),
-                to: kc.to('roption', lazy=true),
-                to_if_alone: kc.to('-'),
-                to_if_held_down: kc.to('roption'),
-                parameters: {
-                  'basic.to_if_held_down_threshold_milliseconds': 100,
-                },
-              },
+              }),
             ],
           },
           {
             description: 'right_shift to right_shift/backslash on Apple keyboards',
             manipulators: [
-              {
-                type: 'basic',
+              tap.modTap('rshift', '\\', {
                 conditions: cond.device_is(device.apple),
-                from: kc.from('*r shift'),
-                to: kc.to('rshift'),
-                to_if_alone: kc.to('\\'),
-                to_if_held_down: kc.to('rshift'),
-                parameters: {
-                  'basic.to_if_held_down_threshold_milliseconds': 100,
-                },
-              },
+              }, lazy=false),
             ],
           },
           {
