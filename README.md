@@ -17,7 +17,7 @@ This is a template for managing your [Karabiner-Elements](https://karabiner-elem
 
 ## License
 
-Copyright (c) 2022-2023 Akinori Musha.
+Copyright (c) 2022-2026 Akinori Musha.
 
 Licensed under the 2-clause BSD license.  See `LICENSE.txt` for details.
 

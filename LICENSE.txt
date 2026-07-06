@@ -1,4 +1,4 @@
-Copyright (c) 2022-2023 Akinori Musha
+Copyright (c) 2022-2026 Akinori Musha
 
 All rights reserved.
 
