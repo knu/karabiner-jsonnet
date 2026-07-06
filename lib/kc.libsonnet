@@ -181,14 +181,18 @@ local generateApplication(application) =
   else
     [];
 
-local to(keys=null, set=null, command=null, application=null, lazy=null) =
+// mixin, if given, is merged into every event the call generates, whether it
+// comes from keys, set, command, or application.
+local to(keys=null, mixin=null, set=null, command=null, application=null, lazy=null) =
   local events = std.prune(
     std.map(generateKey, toArray(keys)) + generateSetVariables(set) + generateCommand(command) + generateApplication(application)
   );
-  if lazy == true then
-    std.map(function(event) event { lazy: true }, events)
-  else
-    events;
+  std.map(
+    function(event)
+      (if lazy == true then event { lazy: true } else event)
+      + (if mixin == null then {} else mixin),
+    events
+  );
 
 local from(keyspec, mandatory=null, optional=null) =
   if std.isArray(keyspec) then
@@ -227,8 +231,8 @@ local simpleFromTo(keyspecFrom, keyspecTo) =
 {
   kbd(keyspec):: generateKey(keyspec),
 
-  to(keys=null, set=null, command=null, application=null, lazy=null)::
-    to(keys, set, command, application, lazy),
+  to(keys=null, mixin=null, set=null, command=null, application=null, lazy=null)::
+    to(keys, mixin, set, command, application, lazy),
 
   from(keyspec, mandatory=null, optional=null)::
     from(keyspec, mandatory, optional),
