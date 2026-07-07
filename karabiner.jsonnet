@@ -50,12 +50,13 @@ local device = {
             ],
           },
           {
-            description: 'Tap Left Command to 英数',
-            manipulators: [
+            description: 'Tap Left Command to 英数, double tap to escape',
+            manipulators: tap.withDoubleTap(
               tap.modTap('lcommand', 'japanese_eisuu', {
                 conditions: cond.device_is_not(device.group.programmable),
               }),
-            ],
+              'ESC',
+            ),
           },
           {
             description: 'Tap Right Command to かな',
